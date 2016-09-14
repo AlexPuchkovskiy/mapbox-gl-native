@@ -38,7 +38,7 @@ std::unique_ptr<SymbolLayout> SymbolLayer::Impl::createLayout(BucketParameters& 
     layoutProperties.symbolPlacement.calculate(p);
 
     bucket->layout.iconRotationAlignment.calculate(p);
-    if (bucket->layout.iconRotationAlignment.value == AlignmentType::Undefined) {
+    if (bucket->layout.iconRotationAlignment.value == AlignmentType::Auto) {
         if (bucket->layout.symbolPlacement.value == SymbolPlacementType::Line) {
             bucket->layout.iconRotationAlignment.value = AlignmentType::Map;
         } else {
@@ -47,7 +47,7 @@ std::unique_ptr<SymbolLayout> SymbolLayer::Impl::createLayout(BucketParameters& 
     }
 
     bucket->layout.textRotationAlignment.calculate(p);
-    if (bucket->layout.textRotationAlignment.value == AlignmentType::Undefined) {
+    if (bucket->layout.textRotationAlignment.value == AlignmentType::Auto) {
         if (bucket->layout.symbolPlacement.value == SymbolPlacementType::Line) {
             bucket->layout.textRotationAlignment.value = AlignmentType::Map;
         } else {
@@ -57,8 +57,8 @@ std::unique_ptr<SymbolLayout> SymbolLayer::Impl::createLayout(BucketParameters& 
 
     // If unspecified `text-pitch-alignment` inherits `text-rotation-alignment`
     bucket->layout.textPitchAlignment.calculate(p);
-    if (layoutProperties.textPitchAlignment.value == AlignmentType::Undefined) {
-        layoutProperties.textPitchAlignment.value = layoutProperties.textRotationAlignment.value;
+    if (bucket->layout.textPitchAlignment.value == AlignmentType::Auto) {
+        bucket->layout.textPitchAlignment.value = bucket->layout.textRotationAlignment.value;
     }
 
     layoutProperties.recalculate(p);
