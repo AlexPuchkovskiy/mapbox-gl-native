@@ -62,6 +62,14 @@ public:
                                                  optional<OfflineRegion>)>);
 
     /*
+     
+     */
+    
+    void updateOfflineMetadata(const OfflineRegion& region,
+                               const OfflineRegionMetadata& metadata,
+                               std::function<void (std::exception_ptr,
+                                                   optional<OfflineRegion>)>);
+    /*
      * Register an observer to be notified when the state of the region changes.
      */
     void setOfflineRegionObserver(OfflineRegion&, std::unique_ptr<OfflineRegionObserver>);
