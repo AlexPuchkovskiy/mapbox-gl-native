@@ -65,6 +65,22 @@ void GeoJSONSource::Impl::setGeoJSON(const GeoJSON& geoJSON) {
         geoJSONOrSupercluster =
             std::make_unique<mapbox::supercluster::Supercluster>(features, clusterOptions);
     }
+    
+    for(auto const &item : tiles) {
+        Tile*  tile = item.second.get();
+        GeoJSONTile* geometryTile = static_cast<GeoJSONTile*>(tile);
+        OverscaledTileID tileID =  geometryTile->id;
+        if (geoJSONOrSupercluster.is<GeoJSONVTPointer>()) {
+            geometryTile->updateData(geoJSONOrSupercluster.get<GeoJSONVTPointer>()->getTile(tileID.canonical.z,
+                                                                                            tileID.canonical.x,
+                                                                                            tileID.canonical.y).features);
+        } else {
+            assert(geoJSONOrSupercluster.is<SuperclusterPointer>());
+            geometryTile->updateData(geoJSONOrSupercluster.get<SuperclusterPointer>()->getTile(tileID.canonical.z,
+                                                                                               tileID.canonical.x,
+                                                                                               tileID.canonical.y));
+        }
+    }
 }
 
 void GeoJSONSource::Impl::loadDescription(FileSource& fileSource) {
