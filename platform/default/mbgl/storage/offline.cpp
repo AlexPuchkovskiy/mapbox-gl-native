@@ -115,7 +115,7 @@ const OfflineRegionMetadata& OfflineRegion::getMetadata() const {
     return metadata;
 }
     
-void OfflineRegion::setMetadata(const OfflineRegionMetadata& metadata_) const {
+void OfflineRegion::setMetadata(const OfflineRegionMetadata& metadata_) {
     metadata=metadata_;
 }
 

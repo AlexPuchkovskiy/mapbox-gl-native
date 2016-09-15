@@ -195,7 +195,7 @@ public:
     int64_t getID() const;
     const OfflineRegionDefinition& getDefinition() const;
     const OfflineRegionMetadata& getMetadata() const;
-    void setMetadata(const OfflineRegionMetadata& metadata_) const;
+    void setMetadata(const OfflineRegionMetadata& metadata_);
 
 private:
     friend class OfflineDatabase;

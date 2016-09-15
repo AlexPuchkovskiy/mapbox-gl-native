@@ -55,7 +55,7 @@ public:
         }
     }
     
-    void updateMetadata(const OfflineRegion& region,
+    void updateMetadata( OfflineRegion& region,
                       const OfflineRegionMetadata& metadata,
                       std::function<void (std::exception_ptr, optional<OfflineRegion>)> callback) {
         try {

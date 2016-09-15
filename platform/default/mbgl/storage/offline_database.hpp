@@ -41,7 +41,7 @@ public:
                                const OfflineRegionMetadata&);
     
     void updateMetadata(const OfflineRegion&,
-                                         const OfflineRegionMetadata&);
+                        const OfflineRegionMetadata&);
 
     void deleteRegion(OfflineRegion&&);
 
