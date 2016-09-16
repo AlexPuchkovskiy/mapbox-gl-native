@@ -77,12 +77,16 @@ public:
                 pendingRequestsMap.erase(it);
             }
         }
+        assert(pendingRequestsMap.size() == pendingRequestsList.size());
     }
 
     void activateOrQueueRequest(OnlineFileRequest* request) {
         assert(allRequests.find(request) != allRequests.end());
-        assert(activeRequests.find(request) == activeRequests.end());
-        assert(!request->request);
+        
+        //Bail out if this request is already being handled
+        if (isScheduled(request) || isActive(request)) {
+            return;
+        }
 
         if (activeRequests.size() >= HTTPFileSource::maximumConcurrentRequests()) {
             queueRequest(request);
@@ -94,6 +98,7 @@ public:
     void queueRequest(OnlineFileRequest* request) {
         auto it = pendingRequestsList.insert(pendingRequestsList.end(), request);
         pendingRequestsMap.emplace(request, std::move(it));
+        assert(pendingRequestsMap.size() == pendingRequestsList.size());
     }
 
     void activateRequest(OnlineFileRequest* request) {
@@ -104,6 +109,7 @@ public:
             request->request.reset();
             request->completed(response);
         });
+        assert(pendingRequestsMap.size() == pendingRequestsList.size());
     }
 
     void activatePendingRequest() {
@@ -117,6 +123,7 @@ public:
         pendingRequestsMap.erase(request);
 
         activateRequest(request);
+        assert(pendingRequestsMap.size() == pendingRequestsList.size());
     }
 
 private:
@@ -124,6 +131,14 @@ private:
         for (auto& request : allRequests) {
             request->networkIsReachableAgain();
         }
+    }
+    
+    inline bool isScheduled(OnlineFileRequest* request) {
+        return pendingRequestsMap.find(request) != pendingRequestsMap.end();
+    }
+    
+    inline bool isActive(OnlineFileRequest* request) {
+        return activeRequests.find(request) != activeRequests.end();
     }
 
     /**
