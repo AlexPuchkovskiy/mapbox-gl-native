@@ -36,29 +36,29 @@ std::unique_ptr<SymbolLayout> SymbolLayer::Impl::createLayout(BucketParameters& 
 
     CalculationParameters p(parameters.tileID.overscaledZ);
     layoutProperties.symbolPlacement.calculate(p);
-
-    bucket->layout.iconRotationAlignment.calculate(p);
-    if (bucket->layout.iconRotationAlignment.value == AlignmentType::Auto) {
-        if (bucket->layout.symbolPlacement.value == SymbolPlacementType::Line) {
-            bucket->layout.iconRotationAlignment.value = AlignmentType::Map;
+   
+    layoutProperties.iconRotationAlignment.calculate(p);
+    if (layoutProperties.iconRotationAlignment.value == AlignmentType::Auto) {
+        if (layoutProperties.symbolPlacement.value == SymbolPlacementType::Line) {
+            layoutProperties.iconRotationAlignment.value = AlignmentType::Map;
         } else {
-            bucket->layout.iconRotationAlignment.value = AlignmentType::Viewport;
+            layoutProperties.iconRotationAlignment.value = AlignmentType::Viewport;
         }
     }
 
-    bucket->layout.textRotationAlignment.calculate(p);
-    if (bucket->layout.textRotationAlignment.value == AlignmentType::Auto) {
-        if (bucket->layout.symbolPlacement.value == SymbolPlacementType::Line) {
-            bucket->layout.textRotationAlignment.value = AlignmentType::Map;
+    layoutProperties.textRotationAlignment.calculate(p);
+    if (layoutProperties.textRotationAlignment.value == AlignmentType::Auto) {
+        if (layoutProperties.symbolPlacement.value == SymbolPlacementType::Line) {
+            layoutProperties.textRotationAlignment.value = AlignmentType::Map;
         } else {
-            bucket->layout.textRotationAlignment.value = AlignmentType::Viewport;
+            layoutProperties.textRotationAlignment.value = AlignmentType::Viewport;
         }
     }
 
     // If unspecified `text-pitch-alignment` inherits `text-rotation-alignment`
-    bucket->layout.textPitchAlignment.calculate(p);
-    if (bucket->layout.textPitchAlignment.value == AlignmentType::Auto) {
-        bucket->layout.textPitchAlignment.value = bucket->layout.textRotationAlignment.value;
+    layoutProperties.textPitchAlignment.calculate(p);
+    if (layoutProperties.textPitchAlignment.value == AlignmentType::Auto) {
+        layoutProperties.textPitchAlignment.value = layoutProperties.textRotationAlignment.value;
     }
 
     layoutProperties.recalculate(p);
