@@ -55,13 +55,11 @@ public:
         }
     }
     
-    void updateMetadata( OfflineRegion& region,
-                      const OfflineRegionMetadata& metadata,
+    void updateMetadata(OfflineRegion&& region,
+                      OfflineRegionMetadata& metadata,
                       std::function<void (std::exception_ptr, optional<OfflineRegion>)> callback) {
         try {
-            offlineDatabase.updateMetadata(region, metadata);
-            region.setMetadata(metadata);
-            callback({}, region);
+            callback({}, offlineDatabase.updateMetadata(std::move(region), metadata));
         } catch (...) {
             callback(std::current_exception(), {});
         }
@@ -204,10 +202,10 @@ void DefaultFileSource::createOfflineRegion(const OfflineRegionDefinition& defin
     thread->invoke(&Impl::createRegion, definition, metadata, callback);
 }
 
-void DefaultFileSource::updateOfflineMetadata(const OfflineRegion& region,
-                                            const OfflineRegionMetadata& metadata,
+void DefaultFileSource::updateOfflineMetadata(OfflineRegion&& region,
+                                            OfflineRegionMetadata& metadata,
                                             std::function<void (std::exception_ptr, optional<OfflineRegion>)> callback) {
-    thread->invoke(&Impl::updateMetadata, metadata, callback);
+    thread->invoke(&Impl::updateMetadata, std::move(region), metadata, callback);
 }
 
 void DefaultFileSource::deleteOfflineRegion(OfflineRegion&& region, std::function<void (std::exception_ptr)> callback) {

@@ -62,11 +62,10 @@ public:
                                                  optional<OfflineRegion>)>);
 
     /*
-     
+     * Update an offline region metadata in the database.
      */
-    
-    void updateOfflineMetadata(const OfflineRegion& region,
-                               const OfflineRegionMetadata& metadata,
+    void updateOfflineMetadata(OfflineRegion&& region,
+                               OfflineRegionMetadata& metadata,
                                std::function<void (std::exception_ptr,
                                                    optional<OfflineRegion>)>);
     /*

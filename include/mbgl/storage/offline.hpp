@@ -195,7 +195,6 @@ public:
     int64_t getID() const;
     const OfflineRegionDefinition& getDefinition() const;
     const OfflineRegionMetadata& getMetadata() const;
-    void setMetadata(const OfflineRegionMetadata& metadata_);
 
 private:
     friend class OfflineDatabase;
@@ -206,7 +205,7 @@ private:
 
     const int64_t id;
     const OfflineRegionDefinition definition;
-    OfflineRegionMetadata metadata;
+    const OfflineRegionMetadata metadata;
 };
 
 } // namespace mbgl

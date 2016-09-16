@@ -115,10 +115,6 @@ const OfflineRegionMetadata& OfflineRegion::getMetadata() const {
     return metadata;
 }
     
-void OfflineRegion::setMetadata(const OfflineRegionMetadata& metadata_) {
-    metadata=metadata_;
-}
-
 int64_t OfflineRegion::getID() const {
     return id;
 }

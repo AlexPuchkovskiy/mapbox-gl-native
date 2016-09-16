@@ -40,9 +40,8 @@ public:
     OfflineRegion createRegion(const OfflineRegionDefinition&,
                                const OfflineRegionMetadata&);
     
-    void updateMetadata(const OfflineRegion&,
-                        const OfflineRegionMetadata&);
-
+    OfflineRegion updateMetadata(OfflineRegion&&, OfflineRegionMetadata&);
+    
     void deleteRegion(OfflineRegion&&);
 
     // Return value is (response, stored size)

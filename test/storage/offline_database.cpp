@@ -283,7 +283,7 @@ TEST(OfflineDatabase, UpdateMetadata) {
     OfflineRegion region = db.createRegion(definition, metadata);
     
     OfflineRegionMetadata newmetadata {{ 4, 5, 6 }};
-    db.updateMetadata(region, newmetadata);
+    db.updateMetadata(std::move(region), newmetadata);
     EXPECT_EQ(db.listRegions().at(0).getMetadata(), newmetadata);
 }
 
