@@ -56,7 +56,7 @@ public:
     }
     
     void updateMetadata(OfflineRegion&& region,
-                      OfflineRegionMetadata& metadata,
+                      const OfflineRegionMetadata& metadata,
                       std::function<void (std::exception_ptr, optional<OfflineRegion>)> callback) {
         try {
             callback({}, offlineDatabase.updateMetadata(std::move(region), metadata));
@@ -203,7 +203,7 @@ void DefaultFileSource::createOfflineRegion(const OfflineRegionDefinition& defin
 }
 
 void DefaultFileSource::updateOfflineMetadata(OfflineRegion&& region,
-                                            OfflineRegionMetadata& metadata,
+                                            const OfflineRegionMetadata& metadata,
                                             std::function<void (std::exception_ptr, optional<OfflineRegion>)> callback) {
     thread->invoke(&Impl::updateMetadata, std::move(region), metadata, callback);
 }
