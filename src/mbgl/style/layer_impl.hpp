@@ -85,6 +85,7 @@ public:
     float minZoom = -std::numeric_limits<float>::infinity();
     float maxZoom = std::numeric_limits<float>::infinity();
     VisibilityType visibility = VisibilityType::Visible;
+    bool enabled = false;
 
     LayerObserver nullObserver;
     LayerObserver* observer = &nullObserver;
