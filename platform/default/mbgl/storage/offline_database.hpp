@@ -40,7 +40,7 @@ public:
     OfflineRegion createRegion(const OfflineRegionDefinition&,
                                const OfflineRegionMetadata&);
     
-    OfflineRegion updateMetadata(OfflineRegion&&, const OfflineRegionMetadata&);
+    OfflineRegionMetadata updateMetadata(const int64_t regionID, const OfflineRegionMetadata&);
     
     void deleteRegion(OfflineRegion&&);
 

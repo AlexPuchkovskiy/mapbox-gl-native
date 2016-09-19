@@ -64,10 +64,10 @@ public:
     /*
      * Update an offline region metadata in the database.
      */
-    void updateOfflineMetadata(OfflineRegion&& region,
+    void updateOfflineMetadata(const int64_t regionID,
                                const OfflineRegionMetadata& metadata,
                                std::function<void (std::exception_ptr,
-                                                   optional<OfflineRegion>)>);
+                                                   optional<OfflineRegionMetadata>)>);
     /*
      * Register an observer to be notified when the state of the region changes.
      */
