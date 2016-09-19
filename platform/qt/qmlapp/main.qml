@@ -47,8 +47,9 @@ ApplicationWindow {
     }
 
     MapboxMapParameter {
-        name: "foo"
-        property var foo: "bar"
+        property var name: "test123"
+        property var foo: bearingSlider.value
+        property var bar: pitchSlider.value
     }
 
     RowLayout {

@@ -3,33 +3,24 @@
 
 #include <QObject>
 #include <QQuickItem>
-#include <QString>
 
 class Q_DECL_EXPORT QQuickMapboxGLMapParameter : public QQuickItem
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString name READ name WRITE setName)
-
 public:
     QQuickMapboxGLMapParameter(QQuickItem *parent = Q_NULLPTR);
-    virtual ~QQuickMapboxGLMapParameter() {}
+    virtual ~QQuickMapboxGLMapParameter() {};
 
-    // QObject implementation
-    bool event(QEvent *) override;
-
+protected:
     // QQmlParserStatus implementation
     void componentComplete() override;
 
-    QString name() const;
-    void setName(const QString &name);
-
-protected:
-    // QQuickItem implementation
-    void itemChange(QQuickItem::ItemChange, const QQuickItem::ItemChangeData &) override;
+public slots:
+    void propertyChanged(int id);
 
 private:
-    QString m_name;
+    int m_metaPropertyOffset;
 };
 
 QML_DECLARE_TYPE(QQuickMapboxGLMapParameter)
